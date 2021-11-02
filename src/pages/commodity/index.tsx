@@ -4,6 +4,8 @@ import './index.css';
 import CommodityItem from "./components/CommodityItem";
 import {getAllCommodities} from "../../service/commodityService";
 import Loading from "../../components/loading";
+import {CommonResponse} from "../../service/http";
+import useRequest from "../../hooks/useRequest";
 
 export interface CommodityItemProps {
 
@@ -15,27 +17,23 @@ export interface CommodityItemProps {
 }
 
 function Commodity() {
-    const [commodities, setCommodities] = useState<CommodityItemProps[]>([]);
-    const [loading, setLoading] = useState<boolean>(false);
+    const getDetail = (): Promise<CommonResponse<CommodityItemProps[]>> => {
+        return getAllCommodities()
+    }
+
+    const {loading, data: commodities = [], execute} =  useRequest( getDetail)
 
     useEffect(() => {
-        setLoading(true)
-        getAllCommodities().then(res => {
-            if (res.status === 200) {
-                setCommodities(res.data)
-            }
-        }).finally(() => {
-            setLoading(false)
-        })
-
+        execute()
     }, [])
+
 
     return (
         <>
             <Loading show={loading}/>
             <div className="container">
                 {
-                    commodities.map((item) => <CommodityItem item={item} key={item.id}/>)
+                    commodities.map((item: CommodityItemProps) => <CommodityItem item={item} key={item.id}/>)
                 }
             </div>
         </>

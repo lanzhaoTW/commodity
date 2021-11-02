@@ -4,25 +4,23 @@ import {CommodityItemProps} from "../commodity";
 import style from "./index.less";
 import {getCommodityDetail} from "../../service/commodityService";
 import Loading from "../../components/loading";
+import useRequest from "../../hooks/useRequest";
+import {CommonResponse} from "../../service/http";
 
 
 function CommodityDetail() {
     const params = useParams<{ id: string }>();
-    const [detail, setDetail] = useState<CommodityItemProps>()
-    const [loading, setLoading] = useState<boolean>(false);
+    const getDetail = (): Promise<CommonResponse<CommodityItemProps>> => {
+        return getCommodityDetail(params.id)
+    }
 
-
+   const {loading, data: detail, execute} =  useRequest( getDetail)
 
     useEffect(() => {
-        setLoading(true)
-        getCommodityDetail(params.id).then(res => {
-            if (res.status === 200) {
-                setDetail(res.data)
-            }
-        }).finally(() => {
-            setLoading(false)
-        })
+        execute()
     }, [params.id])
+
+
 
 
     return (
