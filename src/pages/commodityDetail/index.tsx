@@ -3,24 +3,31 @@ import {useParams} from 'react-router-dom'
 import {CommodityItemProps} from "../commodity";
 import style from "./index.less";
 import {getCommodityDetail} from "../../service/commodityService";
+import Loading from "../../components/loading";
 
 
 function CommodityDetail() {
     const params = useParams<{ id: string }>();
     const [detail, setDetail] = useState<CommodityItemProps>()
+    const [loading, setLoading] = useState<boolean>(false);
+
 
 
     useEffect(() => {
+        setLoading(true)
         getCommodityDetail(params.id).then(res => {
             if (res.status === 200) {
                 setDetail(res.data)
             }
+        }).finally(() => {
+            setLoading(false)
         })
     }, [params.id])
 
 
     return (
         <>
+            <Loading show={loading}/>
             {detail && (<div className={style["container"]}>
 
                 <img src={detail.imageUrl} alt={detail.name} className={style["image-content"]}/>
