@@ -2,22 +2,20 @@ import React, {useEffect, useState} from 'react'
 import {useParams} from 'react-router-dom'
 import {CommodityItemProps} from "../commodity";
 import style from "./index.less";
+import {getCommodityDetail} from "../../service/commodityService";
 
 
 function CommodityDetail() {
     const params = useParams<{ id: string }>();
     const [detail, setDetail] = useState<CommodityItemProps>()
 
-    useEffect(() => {
-        console.log(params.id)
-        setDetail({
-            id: 1,
-            imageUrl: "/images/coffee.jpeg",
-            name: '咖啡',
-            description: "大杯/冰",
-            price: 25,
-        })
 
+    useEffect(() => {
+        getCommodityDetail(params.id).then(res => {
+            if (res.status === 200) {
+                setDetail(res.data)
+            }
+        })
     }, [params.id])
 
 
