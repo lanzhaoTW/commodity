@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import './index.css';
+import React, {useEffect} from 'react';
+import style from './index.less';
 
 import CommodityItem from "./components/CommodityItem";
 import {getAllCommodities} from "../../service/commodityService";
@@ -31,7 +31,7 @@ function Commodity() {
     return (
         <>
             <Loading show={loading}/>
-            <div className="container">
+            <div className={style["container"]}>
                 {
                     commodities.map((item: CommodityItemProps) => <CommodityItem item={item} key={item.id}/>)
                 }

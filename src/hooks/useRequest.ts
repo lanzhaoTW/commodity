@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import {useCallback, useState} from 'react'
 import {CommonResponse} from "../service/http";
 
 const useRequest = (requestFunction: () => Promise<CommonResponse<any>>) => {
