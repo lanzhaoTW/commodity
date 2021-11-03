@@ -1,5 +1,5 @@
-import React, {useEffect, } from 'react'
-import {useHistory, useParams} from 'react-router-dom'
+import React, {useEffect} from 'react'
+import {useParams} from 'react-router-dom'
 import style from "./index.less";
 import {CommodityResponse, getCommodityDetail} from "../../service/commodityService";
 import Loading from "../../components/loading";
@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 
 function CommodityDetail() {
     const params = useParams<{ id: string }>();
-    const history = useHistory();
 
     const getDetail = (): Promise<CommonResponse<CommodityResponse>> => {
         return getCommodityDetail(params.id)
