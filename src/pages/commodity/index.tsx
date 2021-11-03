@@ -2,22 +2,13 @@ import React, {useEffect} from 'react';
 import style from './index.less';
 
 import CommodityItem from "./components/CommodityItem";
-import {getAllCommodities} from "../../service/commodityService";
+import {getAllCommodities, CommodityResponse} from "../../service/commodityService";
 import Loading from "../../components/loading";
 import {CommonResponse} from "../../service/http";
 import useRequest from "../../hooks/useRequest";
 
-export interface CommodityItemProps {
-
-    id: number;
-    imageUrl: string;
-    name: string;
-    description: string;
-    price: number;
-}
-
 function Commodity() {
-    const getDetail = (): Promise<CommonResponse<CommodityItemProps[]>> => {
+    const getDetail = (): Promise<CommonResponse<CommodityResponse[]>> => {
         return getAllCommodities()
     }
 
@@ -33,7 +24,7 @@ function Commodity() {
             <Loading show={loading}/>
             <div className={style["container"]}>
                 {
-                    commodities.map((item: CommodityItemProps) => <CommodityItem item={item} key={item.id}/>)
+                    commodities.map((item: CommodityResponse) => <CommodityItem item={item} key={item.id}/>)
                 }
             </div>
         </>

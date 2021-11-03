@@ -1,8 +1,7 @@
 import React, {useEffect, } from 'react'
 import {useParams} from 'react-router-dom'
-import {CommodityItemProps} from "../commodity";
 import style from "./index.less";
-import {getCommodityDetail} from "../../service/commodityService";
+import {CommodityResponse, getCommodityDetail} from "../../service/commodityService";
 import Loading from "../../components/loading";
 import useRequest from "../../hooks/useRequest";
 import {CommonResponse} from "../../service/http";
@@ -10,7 +9,7 @@ import {CommonResponse} from "../../service/http";
 
 function CommodityDetail() {
     const params = useParams<{ id: string }>();
-    const getDetail = (): Promise<CommonResponse<CommodityItemProps>> => {
+    const getDetail = (): Promise<CommonResponse<CommodityResponse>> => {
         return getCommodityDetail(params.id)
     }
 

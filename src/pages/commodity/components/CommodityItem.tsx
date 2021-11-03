@@ -1,10 +1,10 @@
 import React from 'react';
 import style from './commodityItem.less';
-import { CommodityItemProps } from "../index"
 import { useHistory } from 'react-router-dom'
+import {CommodityResponse} from "../../../service/commodityService";
 
 interface Props {
-    item: CommodityItemProps
+    item: CommodityResponse
 }
 
 function CommodityItem({ item }: Props ) {
